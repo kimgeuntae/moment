@@ -1,7 +1,7 @@
 const clockContainer = document.querySelector(".js-clock"),
     clockTitle = clockContainer.querySelector("h1");
 
-function getTime(){
+function getTime() {
     const date = new Date();
     const minutes = date.getMinutes();
     const hours = date.getHours();
@@ -11,7 +11,7 @@ function getTime(){
     }:${secodnds < 10 ? `0${secodnds}` : secodnds}`;
 }
 
-function init(){
+function init() {
     getTime();
     setInterval(getTime, 1000);
 }
