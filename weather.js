@@ -11,7 +11,7 @@ function getWeather(lat, lng) {
         return responce.json();
     }).then(function (json) {
         const temperature = json.main.temp;
-        const palce = json.name;
+        const place = json.name;
         const icon = json.weather[0].icon;
         img_tag = document.createElement('img');
         img_tag.src = `https://openweathermap.org/img/w/${icon}.png`;
