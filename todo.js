@@ -1,10 +1,22 @@
-const toDoFrom = document.querySelector(".js-toDoFrom"),
+const toDoFrom = document.querySelector(".js-toDoForm"),
     toDoInput = toDoFrom.querySelector("input"),
     toDoList = document.querySelector(".js-toDoList");
 
 const TODOS_LS = "toDos";
 
 let toDos = [];
+
+function handleCheck(event) {
+    const input_checkbox = event.target;
+    const labelText = input_checkbox.nextSibling 
+  
+    if (input_checkbox.checked === true) {
+      labelText.className = "line-through";
+    } else {
+      input_checkbox.removeAttribute('checked');
+      labelText.className = '';
+    }
+}
 
 function deleteTodo(event) {
     const btn = event.target;
@@ -18,7 +30,7 @@ function deleteTodo(event) {
     */
 
     const cleanToDos = toDos.filter(
-        toDo => toDo.id !== parseInt(li.id) // Filtered no selected li list.
+        toDo => toDo.id !== JSON.parse(li.id) // Filtered no selected li list.
     );
 
     toDos = cleanToDos; // Change new todolist.
@@ -32,13 +44,23 @@ function saveToDos() {  // Save todos with JSON in localstorage.
 function paintToDo(text) {  // Create list in toDoList.
     const li = document.createElement("li");
     const delBtn = document.createElement("button");
-    const span = document.createElement("span");
+    //const span = document.createElement("span");
     const newId = toDos.length + 1;
-    delBtn.innerText = "X"
+    delBtn.innerText = "❌"
+    delBtn.className = "delBtn"
     delBtn.addEventListener("click", deleteTodo);
-    span.innerText = text;
+    //span.innerText = text;
+    const input = document.createElement('input');
+    const label = document.createElement('label');
+    input.type = "checkbox"
+    input.id = text;
+    input.name = text; 
+    label.setAttribute("for", text);
+    label.innerText = text; 
+    input.addEventListener('click', handleCheck);
+    li.appendChild(input);
+    li.appendChild(label);
     li.appendChild(delBtn);
-    li.appendChild(span);
     li.id = newId;
     toDoList.appendChild(li);
     const toDoObj = {
